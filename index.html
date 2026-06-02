@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>تحدي بطلات الرياضيات - نسخة محسنة</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@500;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root{--bg:#f6fbff;--card:#fff;--ink:#000;--blue:#bfeeff;--deep:#0b6b8f;--green:#12a150;--red:#d93025;--gold:#f5b301;--shadow:0 18px 50px rgba(0,0,0,.12)}
+    *{box-sizing:border-box}body{margin:0;font-family:'Cairo',system-ui,sans-serif;background:linear-gradient(135deg,#e9f8ff,#fff7e6);color:var(--ink);min-height:100vh}
+    .wrap{max-width:1180px;margin:auto;padding:18px}.hero{background:var(--card);border:3px solid #000;border-radius:26px;box-shadow:var(--shadow);padding:22px;text-align:center;position:relative;overflow:hidden}.hero:before{content:'✦';position:absolute;font-size:140px;opacity:.08;left:30px;top:-20px}.title{font-size:clamp(28px,5vw,54px);font-weight:900;margin:0;color:#000}.credit{font-size:clamp(18px,3vw,26px);font-weight:800;margin:4px 0 0;color:#000}.panel{background:var(--card);border:2px solid #000;border-radius:22px;box-shadow:var(--shadow);padding:20px;margin-top:18px}.hidden{display:none!important}.btn{border:2px solid #000;background:#fff;border-radius:18px;padding:14px 22px;font-size:22px;font-weight:900;cursor:pointer;color:#000;transition:.15s}.btn:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(0,0,0,.15)}.primary{background:var(--blue)}.green{background:#d7ffdF}.red{background:#ffd9d9}.gold{background:#fff1bd}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px}.chap{min-height:115px;text-align:center;font-size:25px;background:#fff;border:3px solid #000;border-radius:20px;padding:18px;font-weight:900;cursor:pointer}.chap.locked{opacity:.45;filter:grayscale(1)}input,select{width:100%;padding:14px;border:2px solid #000;border-radius:16px;font-size:22px;font-weight:800;color:#000;background:#fff}.row{display:grid;grid-template-columns:1fr 1fr;gap:14px}@media(max-width:700px){.row{grid-template-columns:1fr}.wrap{padding:10px}.btn{font-size:19px}.panel{padding:14px}}
+    .game{display:grid;grid-template-columns:1fr 310px;gap:16px}@media(max-width:900px){.game{grid-template-columns:1fr}.leader{order:2}}
+    .topbar{display:flex;gap:10px;flex-wrap:wrap;justify-content:space-between;align-items:center;margin-bottom:10px}.badge{border:2px solid #000;border-radius:999px;background:#fff;padding:8px 14px;font-weight:900;font-size:19px;color:#000}.timer{height:18px;background:#eee;border:2px solid #000;border-radius:999px;overflow:hidden;margin:12px 0}.timer>div{height:100%;background:linear-gradient(90deg,#55d66b,#ffd54a,#ff6b5f);width:100%;transition:width .3s linear}.qbox{border:3px solid #000;border-radius:24px;padding:18px;background:#fff;min-height:250px}.qno{font-size:20px;font-weight:900;color:#000}.question{font-size:clamp(25px,4vw,40px);font-weight:900;line-height:1.8;text-align:center;margin:15px 0;color:#000}.math{font-size:1.15em;font-weight:900;color:#000;white-space:normal}.opts{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}@media(max-width:700px){.opts{grid-template-columns:1fr}}
+    .opt{min-height:72px;background:#fff;border:3px solid #000;border-radius:18px;padding:12px;font-size:24px;font-weight:900;color:#000;cursor:pointer}.opt.correct{background:#c9ffd7;animation:pop .35s}.opt.wrong{background:#ffd0d0;animation:shake .35s}@keyframes pop{50%{transform:scale(1.05)}}@keyframes shake{25%{transform:translateX(8px)}50%{transform:translateX(-8px)}75%{transform:translateX(5px)}}.leader h3{margin:0 0 10px;font-size:24px}.leaderItem{display:flex;justify-content:space-between;gap:8px;border:2px solid #000;border-radius:14px;padding:9px 10px;margin:8px 0;background:#fff;font-weight:900;font-size:17px}.stars{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:10}.star{position:absolute;font-size:28px;animation:fly 1s ease-out forwards}@keyframes fly{to{transform:translateY(-140px) rotate(200deg);opacity:0}}.endScore{font-size:42px;font-weight:900;text-align:center}.note{font-size:19px;font-weight:800;line-height:1.9}.footerCredit{text-align:center;margin-top:14px;font-weight:900;color:#000}.small{font-size:16px}.adminBox{background:#fffbe6;border:2px dashed #000;border-radius:18px;padding:12px;margin-top:12px}.status{font-weight:900;margin-top:10px}.svgIcon{width:70px;height:70px;margin:auto;display:block}
+
+    .introCard{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;margin:16px 0}.rule{border:2px solid #000;border-radius:18px;background:#fff;padding:14px;font-size:20px;font-weight:900;color:#000;text-align:center}.chapSub{font-size:15px;font-weight:800;margin-top:6px}.optionLabel{display:inline-flex;align-items:center;justify-content:center;min-width:42px;height:42px;border:2px solid #000;border-radius:50%;background:#e9f8ff;margin-left:10px;font-weight:900}.optionText{font-size:clamp(22px,3vw,31px);font-weight:900;line-height:1.7}.opt{display:flex;align-items:center;justify-content:flex-start;text-align:right;gap:6px}.feedback{font-size:22px;font-weight:900;text-align:center;min-height:38px;margin-top:12px;color:#000}.homeBtn{background:#fff4cf}.progressText{font-weight:900;text-align:center;margin:6px 0;color:#000}.endActions{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:16px}.leaderNote{font-size:15px;font-weight:800;margin-bottom:10px}.qbox{position:relative}.qbox:after{content:'تصميم الأستاذة / سماح كتبي';position:absolute;bottom:8px;left:18px;font-size:13px;font-weight:900;opacity:.45}.math sup{font-size:.7em;vertical-align:super}.sqrt{font-size:1.1em;font-weight:900}.question.math{direction:rtl}.opts .math{direction:rtl}
+
+  </style>
+</head>
+<body>
+<div class="stars" id="stars"></div>
+<div class="wrap">
+  <section class="hero">
+    <h1 class="title">🎮 تحدي بطلات الرياضيات</h1>
+    <div class="credit">تصميم الأستاذة / سماح كتبي</div>
+  </section>
+
+  <section id="intro" class="panel">
+    <h2>🌟 طريقة اللعبة</h2>
+    <div class="introCard">
+      <div class="rule">📚 اختاري الباب المطلوب</div>
+      <div class="rule">⏱️ لكل سؤال ٣٠ ثانية</div>
+      <div class="rule">✅ الصحيحة = +١ نقطة</div>
+      <div class="rule">❌ الخاطئة = -١ نقطة</div>
+      <div class="rule">🏆 تابعي ترتيبك مباشرة</div>
+      <div class="rule">🎯 حاولي الوصول للمركز الأول</div>
+    </div>
+    <button class="btn primary" onclick="showLogin()">ابدئي اللعب 🚀</button>
+  </section>
+
+  <section id="login" class="panel hidden">
+    <h2>👩‍🎓 بيانات الطالبة</h2>
+    <div class="row">
+      <div><label>اسم الطالبة</label><input id="studentName" placeholder="اكتبي اسمك هنا"></div>
+      <div><label>الشعبة</label><input id="studentClass" placeholder="مثال: ٣ / ١"></div>
+    </div>
+    <div id="loginMsg" class="status"></div>
+    <button class="btn primary" onclick="openChapters()">التالي</button>
+  </section>
+
+  <section id="chapters" class="panel hidden">
+    <h2>📚 اختاري الباب</h2>
+    <div class="grid" id="chapterGrid"></div>
+  </section>
+
+  <section id="game" class="panel hidden">
+    <div class="game">
+      <main>
+        <div class="topbar">
+          <span class="badge" id="chapterBadge"></span>
+          <span class="badge" id="scoreBadge">النقاط: ٠</span>
+          <span class="badge" id="timeBadge">٣٠ ثانية</span>
+          <button class="btn homeBtn" style="padding:8px 14px;font-size:17px" onclick="backToChapters()">🏠 الأبواب</button>
+        </div>
+        <div class="timer"><div id="timerFill"></div></div>
+        <div class="qbox">
+          <div class="qno" id="qno"></div>
+          <div id="icon"></div>
+          <div class="question math" id="question"></div>
+          <div class="opts" id="options"></div>
+          <div class="feedback" id="feedback"></div>
+        </div>
+      </main>
+      <aside class="leader panel" style="margin-top:0">
+        <h3>🏆 المتصدرات الآن</h3>
+        <div id="leaderboard">جاري التحميل...</div>
+      </aside>
+    </div>
+    <div class="footerCredit">تصميم الأستاذة / سماح كتبي</div>
+  </section>
+
+  <section id="end" class="panel hidden">
+    <h2>🎉 انتهى التحدي</h2>
+    <div class="endScore" id="finalScore"></div>
+    <div id="finalDetails" class="note"></div>
+    <div class="endActions"><button class="btn primary" onclick="restartSame()">إعادة نفس الباب</button><button class="btn gold" onclick="goToChaptersFromEnd()">اختيار باب آخر</button><button class="btn" onclick="location.reload()">البداية</button></div>
+  </section>
+</div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+import { getFirestore, doc, setDoc, updateDoc, collection, query, orderBy, limit, onSnapshot, serverTimestamp, getDoc } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBM2Ed4NqgTV9-xuVGHejQvZL1fgFyvMbo",
+  authDomain: "math-leaderboard-game.firebaseapp.com",
+  projectId: "math-leaderboard-game",
+  storageBucket: "math-leaderboard-game.firebasestorage.app",
+  messagingSenderId: "121434962141",
+  appId: "1:121434962141:web:812e09c528e40352464334",
+  measurementId: "G-R6RNFLB39S"
+};
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+const QUESTION_BANK = {
+  ch6:{name:'الباب السادس', icon:'🧮', open:true, questions:[
+    q('العبارة التي تمثل وحيدة حد هي:', ['٣٠س² ص⁷','٣٠س³ ص⁻⁷','س + س³ ص⁷','٤ص ل + ١'], 0),
+    q('حجم مكعب على صورة وحيدة حد، إذا كان طول حرفه = س ص، فإن حجمه يساوي:', ['س³ ص⁶','س² ص²','س³ ص³','س⁶ ص³'], 2),
+    q('عند قسمة قوتين لهما الأساس نفسه فإننا:', ['نجمع الأسس','نطرح الأسس','نضرب الأسس','نقسم الأسس'], 1),
+    q('وحيدة الحد ٩س³ ص² من الدرجة:', ['الرابعة','الخامسة','الثالثة','السادسة'], 1),
+    q('عند ضرب قوتين لهما الأساس نفسه فإننا:', ['نجمع الأسس','نطرح الأسس','نضرب الأسس','نقسم الأسس'], 0),
+    q('رتبة المقدار ٩٥٠٠٠٠ هي:', ['١٠⁶','١٠⁵','١٠⁷','١٠⁻⁶'], 0),
+    q('يعتمد تصنيف كثيرة الحدود على:', ['عدد الحدود','درجة الحد','المعامل الرئيس','قيمة المتغير'], 0),
+    q('محيط المستطيل الذي طوله ٢٠س² وعرضه ٥س² هو:', ['٤٠س²','٣٠س²','٢٥س²','٥٠س²'], 3),
+    q('ما محيط مربع طول ضلعه (٢س + ٣)؟', ['٨س + ١٢','٤س + ٦','٢س + ١٢','٨س + ٣'], 0),
+    q('ما مساحة مربع طول ضلعه (٢س + ٣)؟', ['٤س² + ١٢س + ٩','٤س² + ٩','٢س² + ١٢س + ٩','٤س² + ٦س + ٩'], 0)
+  ]},
+  ch7:{name:'الباب السابع', icon:'🧩', open:true, questions:[
+    q('التحليل التام لوحيدة الحد ١٠ ب ص² هو:', ['-١ × ٢ × ٥ × ب × ص × ص','١٠ × ب × ص','٢ × ٥ × ب × ص × ص','٥ × ب × ص'], 2),
+    q('المربع الكامل من العبارات الآتية هو:', ['٩س² - ١٨س + ٩','٤س² - ٣٠س + ٩','س² - ٣٠س + ٩','٢س² - ٣٠س + ٩'], 0),
+    q('في القانون العام تسمى العبارة ب² - ٤أج:', ['المدى','المميز','الرأس','المقطع السيني'], 1),
+    q('إذا كانت قيمة المميز موجبة فإن:', ['يوجد حلان للمعادلة','يوجد حل وحيد للمعادلة','لا يوجد حل للمعادلة','يوجد عدد لا نهائي من الحلول'], 0),
+    q('تحليل ثلاثي الحدود س² + ٧س + ١٠ هو:', ['(س + ٥)(س + ٢)','(س + ٥)(س + ٣)','(س + ٢)(س + ٢)','(س + ١٠)(س + ١)'], 0),
+    q('حل المعادلة ٩س² = ٢٧س هو:', ['٠ ، ٣','١ ، ٣','١ ، ٩','٣ ، -١'], 0),
+    q('تصبح العبارة س² - ٨س + ... مربعًا كاملًا إذا أضيف:', ['٨','١٦','٣٢','٦٤'], 1),
+    q('حل المعادلة (ص - ١)² = ٢٥ هو:', ['٦ ، -٤','٤ ، -٦','٥ ، -٥','لا يوجد حل'], 0),
+    q('ناتج (أ + ب)(أ + ب) هو:', ['أ² - ب²','أ² + ب²','أ² + ٢أب + ب²','أ² - ٢أب + ب²'], 2),
+    q('تحليل كثيرة الحدود ٢٧س² - ٣س هو:', ['٣س(٩س - ١)','٣س(٩ - س)','س(٢٧س - ٣)','٣(٩س² - س)'], 0)
+  ]},
+  ch8:{name:'الباب الثامن', icon:'📈', open:true, questions:[
+    q('الدالة التربيعية تمثل ب:', ['خط مستقيم','قطع مكافئ','زاوية','مضلع'], 1),
+    q('الدالة المولدة للدالة التربيعية هي:', ['د(س)=س','د(س)=س+٢','د(س)=س²','د(س)=س³'], 2),
+    q('التمثيل البياني للدالة د(س)=٣س²-٥س-١ يكون:', ['مفتوح لأعلى وله قيمة عظمى','مفتوح لأسفل وله قيمة عظمى','مفتوح لأعلى وله قيمة صغرى','مفتوح لأسفل وله قيمة صغرى'], 2),
+    q('إذا كانت قيمة المميز عددًا موجبًا فإن:', ['يوجد حلان للمعادلة','يوجد حل وحيد للمعادلة','لا يوجد حل للمعادلة','يوجد عدد لا نهائي من الحلول'], 0),
+    q('قيمة المميز للمعادلة ٣س² + ٦س - ٨ = ٠ هي:', ['١٠٠','١٣٢','١٢١','٩٦'], 1),
+    q('معادلة محور التماثل للمعادلة ٣س² + ٦س - ٨ = ٠ هي:', ['س = ١','س = -٢','س = -١','س = ٣'], 2),
+    q('قيمة ج التي تجعل ثلاثية الحدود س² - ١٢س + ج مربعًا كاملًا:', ['١٤٤','٦','٣٥','٣٦'], 3),
+    q('المقطع الصادي للدالة ص=٣س²+٦س-٨ هو:', ['-٨','٦','-١','٣'], 0),
+    q('عدد الحلول الحقيقية للمعادلة ٥س² + ٢س = ٩ هو:', ['٠','١','٢','٤'], 2),
+    q('لا يوجد حل للمعادلة إذا كانت قيمة المميز:', ['عددًا سالبًا','عددًا موجبًا','صفر','عددًا نسبيًا'], 0)
+  ]},
+  ch9:{name:'الباب التاسع', icon:'📐', open:true, questions:[
+    q('تبسيط العبارة √٣٦ هو:', ['٦','١٨','١٢','٣٦'], 0),
+    q('√٦ × ٢√٦ =', ['٣٦','١٨','١٢','٦√٦'], 2),
+    q('√٦ + ٣√٦ =', ['٢٤','١٨','٤√٦','٣٠'], 2),
+    q('مرافق المقدار ٢√٦ - ٧ هو:', ['٢√٦ - ٧','٢√٦ + ٧','√٧ - √٦','٧√ - ٢'], 1),
+    q('المسافة بين النقطتين (١،٢) و(-١،٥) هي:', ['٦','٥','٧','٨'], 1),
+    q('جتا ٦٠° =', ['٠٫٥','٠٫٦','١','صفر'], 0),
+    q('أطوال أضلاع المثلث القائم الزاوية هي:', ['٧،٨،١٠','٥،١٣،١٢','٣٠،٢٠،١٠','٢،١٤،١٢'], 1),
+    q('في المثلثات المتشابهة تكون الأضلاع المتناظرة:', ['متوازية','متطابقة','متناسبة','متعامدة'], 2),
+    q('إذا كان جا هـ = ١، فإن قياس الزاوية هـ:', ['٦٠°','٣٠°','٤٥°','٩٠°'], 3),
+    q('الحل بنظرية فيثاغورس لإيجاد طول الوتر يعتمد على:', ['جمع مربعي الضلعين القائمين','طرح الضلعين','قسمة الزاويتين','ضرب الزوايا'], 0)
+  ]},
+  ch10:{name:'الباب العاشر', icon:'🎲', open:true, questions:[
+    q('مقياس يصف إحدى خصائص العينة:', ['المعلمة','الإحصائي','المدى','المدى الربيعي'], 1),
+    q('العينة العشوائية التي تنتج من تقسيم المجتمع إلى فئات متطابقة تسمى:', ['عينة بسيطة','عينة طبقية','عينة منتظمة','غير ذلك'], 1),
+    q('بكم طريقة يمكن ترتيب أول خمسة متسابقين يصلون لخط النهاية في السباق؟', ['١٠٠','١٢٠','١٨٠','٢٤٠'], 1),
+    q('إذا ألقيت قطعة نقود مرتين فما احتمال ظهور الشعار في الرميتين؟', ['٥٠٪','٧٥٪','٣٠٪','٢٥٪'], 3),
+    q('المقياس الذي يفضل استعماله عند ظهور قيمة متطرفة بدون فجوات كبيرة هو:', ['الوسيط','المتوسط الحسابي','المنوال','المدى'], 0),
+    q('تسمى الحادثتان اللتان يمكن وقوعهما معًا:', ['غير مستقلتين','غير متنافيتين','مستقلتين','متنافيتين'], 1),
+    q('عند رمي مكعب أرقام فإن احتمال ظهور عدد زوجي هو:', ['١/٦','١/١٢','١/٨','١/٢'], 3),
+    q('عند رمي مكعب أرقام، احتمال ظهور عدد فردي أو أولي هو:', ['١/٦','١/١٢','١/٨','٢/٣'], 3),
+    q('مقياس النزعة المركزية الأنسب للبيانات ٤، ٥، ٥، ٦، ٨، ١١ هو:', ['المنوال','الوسيط','المدى','المتوسط الحسابي'], 0),
+    q('إذا كان الانحراف المعياري لمجموعة البيانات يساوي ٩ فإن التباين يساوي:', ['٨١','٣','١٨','٢٧'], 0)
+  ]}
+};
+function q(text, options, answer){return {text,options,answer};}
+const toArabicDigits = s => String(s).replace(/[0-9]/g,d=>'٠١٢٣٤٥٦٧٨٩'[d]);
+function safeHTML(txt){return String(txt).replace(/[&<>]/g, m=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[m]));}
+function formatMath(txt){return safeHTML(toArabicDigits(txt))
+  .replace(/\^([٠-٩]+)/g,'<sup>$1</sup>')
+  .replace(/([سصأ-ي])([²³⁴⁵⁶⁷⁸⁹])/g,'$1<sup>$2</sup>')
+  .replace(/√/g,'<span class=\"sqrt\">√</span>');}
+const $ = (id) => document.getElementById(id);
+const intro=$('intro'), login=$('login'), game=$('game'), end=$('end'), chapterGrid=$('chapterGrid'), leaderboard=$('leaderboard'), chapterBadge=$('chapterBadge'), scoreBadge=$('scoreBadge'), timeBadge=$('timeBadge'), timerFill=$('timerFill'), qno=$('qno'), icon=$('icon'), question=$('question'), options=$('options'), finalScore=$('finalScore'), finalDetails=$('finalDetails'), stars=$('stars'), feedback=$('feedback');
+
+let state={student:'',klass:'',chapterKey:'',chapter:null,questions:[],idx:0,score:0,correct:0,wrong:0,time:30,timer:null,docId:'',unsub:null,answeredWrong:false};
+window.showLogin=()=>{intro.classList.add('hidden'); login.classList.remove('hidden')};
+window.openChapters=()=>{const name=document.getElementById('studentName').value.trim(); if(!name){document.getElementById('loginMsg').textContent='اكتبي اسم الطالبة أولًا';return;} state.student=name; state.klass=document.getElementById('studentClass').value.trim(); document.getElementById('login').classList.add('hidden'); document.getElementById('chapters').classList.remove('hidden'); renderChapters();};
+function renderChapters(){chapterGrid.innerHTML=''; Object.entries(QUESTION_BANK).forEach(([key,ch])=>{const b=document.createElement('button');b.className='chap '+(ch.open?'':'locked');b.innerHTML=`<div style="font-size:38px">${ch.icon}</div>${ch.name}<div class="chapSub">${toArabicDigits(ch.questions.length)} أسئلة</div>`;b.onclick=()=> ch.open?startChapter(key):alert('🔒 هذا التحدي غير متاح حاليًا'); chapterGrid.appendChild(b);});}
+async function startChapter(key){state.chapterKey=key;state.chapter=QUESTION_BANK[key];state.questions=[...state.chapter.questions];state.idx=0;state.score=0;state.correct=0;state.wrong=0;state.docId=`${key}_${state.student.replace(/\s+/g,'_')}`;const ref=doc(db,'leaderboards',key,'players',state.docId);const exists=await getDoc(ref); if(exists.exists() && exists.data().finished){ if(!confirm('هذا الاسم لديه نتيجة سابقة في هذا الباب. هل تريدين المحاولة مرة أخرى وتحديث النتيجة؟')) return; }
+await setDoc(ref,{name:state.student,class:state.klass,chapter:state.chapter.name,score:0,correct:0,wrong:0,finished:false,updatedAt:serverTimestamp()},{merge:true});document.getElementById('chapters').classList.add('hidden');document.getElementById('game').classList.remove('hidden');listenLeaderboard();renderQuestion();}
+function listenLeaderboard(){if(state.unsub)state.unsub();const qy=query(collection(db,'leaderboards',state.chapterKey,'players'),orderBy('score','desc'),limit(10));state.unsub=onSnapshot(qy,snap=>{leaderboard.innerHTML='';let i=0;snap.forEach(d=>{i++;const x=d.data();const row=document.createElement('div');row.className='leaderItem';row.innerHTML=`<span>${i==1?'👑':i==2?'🥈':i==3?'🥉':'⭐'} ${x.name||''}</span><span>${toArabicDigits(x.score||0)}</span>`;leaderboard.appendChild(row);});if(!i)leaderboard.textContent='لا توجد نتائج بعد';});}
+function renderQuestion(){clearInterval(state.timer); if(state.idx>=state.questions.length){finishGame();return;} state.answeredWrong=false; const item=state.questions[state.idx];chapterBadge.textContent=state.chapter.icon+' '+state.chapter.name;scoreBadge.textContent='النقاط: '+toArabicDigits(state.score);qno.textContent=`السؤال ${toArabicDigits(state.idx+1)} من ${toArabicDigits(state.questions.length)}`;icon.innerHTML=svgIcon(state.chapterKey);question.innerHTML=formatMath(item.text);options.innerHTML='';feedback.textContent='';item.options.forEach((op,i)=>{const b=document.createElement('button');b.className='opt math';b.innerHTML=`<span class="optionLabel">${['أ','ب','ج','د'][i]}</span><span class="optionText">${formatMath(op)}</span>`;b.onclick=()=>choose(i,b);options.appendChild(b);});startTimer();}
+function startTimer(){state.time=30;timeBadge.textContent='٣٠ ثانية';timerFill.style.width='100%';state.timer=setInterval(()=>{state.time--;timeBadge.textContent=toArabicDigits(state.time)+' ثانية';timerFill.style.width=(state.time/30*100)+'%';if(state.time<=0){clearInterval(state.timer);feedback.textContent='انتهى الوقت، ننتقل للسؤال التالي';setTimeout(()=>{state.idx++;renderQuestion();},600);}},1000);}
+async function choose(i,btn){const item=state.questions[state.idx]; if(btn.disabled) return; if(i===item.answer){Array.from(options.children).forEach(x=>x.disabled=true);btn.classList.add('correct');feedback.textContent='إجابة صحيحة، أحسنتِ ⭐';state.score++;state.correct++;playTone(true);burst();await saveProgress(false);setTimeout(()=>{state.idx++;renderQuestion();},750);}else{btn.classList.add('wrong');feedback.textContent='إجابة غير صحيحة، حاولي مرة أخرى';state.score--;state.wrong++;playTone(false);await saveProgress(false);setTimeout(()=>btn.classList.remove('wrong'),450);}}
+async function saveProgress(done){scoreBadge.textContent='النقاط: '+toArabicDigits(state.score);await updateDoc(doc(db,'leaderboards',state.chapterKey,'players',state.docId),{score:state.score,correct:state.correct,wrong:state.wrong,finished:done,updatedAt:serverTimestamp()});}
+async function finishGame(){clearInterval(state.timer); if(state.unsub)state.unsub(); await saveProgress(true);game.classList.add('hidden');end.classList.remove('hidden');finalScore.textContent='النقاط: '+toArabicDigits(state.score);finalDetails.innerHTML=`الباب: ${state.chapter.name}<br>الإجابات الصحيحة: ${toArabicDigits(state.correct)}<br>الإجابات الخاطئة: ${toArabicDigits(state.wrong)}<br>أحسنتِ، راجعي الأخطاء ثم جرّبي بابًا آخر.`;}
+function burst(){for(let i=0;i<16;i++){const s=document.createElement('div');s.className='star';s.textContent=['⭐','✨','🌟'][i%3];s.style.left=Math.random()*100+'%';s.style.top=(55+Math.random()*25)+'%';stars.appendChild(s);setTimeout(()=>s.remove(),1000);}}
+function playTone(ok){try{const ctx=new (window.AudioContext||window.webkitAudioContext)();const osc=ctx.createOscillator();const gain=ctx.createGain();osc.connect(gain);gain.connect(ctx.destination);osc.frequency.value=ok?740:220;gain.gain.value=.06;osc.start();setTimeout(()=>{osc.stop();ctx.close();},ok?180:260);}catch(e){}}
+function svgIcon(key){const map={ch6:'M30 10h60v80H30z M42 28h36 M42 45h36 M42 62h36',ch7:'M20 70 L50 20 L80 70 Z M35 70 L50 45 L65 70',ch8:'M15 80 Q50 10 85 80 M50 10v70 M20 55h60',ch9:'M20 80 L20 25 L85 80 Z M20 25 L85 80',ch10:'M25 25h60v60H25z M40 40h1 M70 40h1 M55 55h1 M40 70h1 M70 70h1'};return `<svg class="svgIcon" viewBox="0 0 100 100"><path d="${map[key]}" fill="none" stroke="#000" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></svg>`;}
+
+window.backToChapters=()=>{if(confirm('هل تريدين الرجوع لاختيار الأبواب؟ سيتم حفظ نتيجتك الحالية.')){clearInterval(state.timer); if(state.unsub)state.unsub(); game.classList.add('hidden'); document.getElementById('chapters').classList.remove('hidden'); renderChapters();}};
+window.goToChaptersFromEnd=()=>{end.classList.add('hidden'); document.getElementById('chapters').classList.remove('hidden'); renderChapters();};
+window.restartSame=()=>{end.classList.add('hidden'); startChapter(state.chapterKey);};
+
+window.addEventListener('beforeunload',()=>{if(state.timer)clearInterval(state.timer)});
+</script>
+</body>
+</html>
