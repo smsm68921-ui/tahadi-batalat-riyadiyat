@@ -67,7 +67,7 @@
       <div class="rule">🎯 حاولي الوصول للمركز الأول</div>
     </div>
     <button class="btn primary" onclick="showLogin(); return false;" ontouchstart="showLogin(); return false;">ابدئي اللعب 🚀</button>
-<<button class="btn gold" onclick="showTeacherBoard(); return false;" ontouchstart="showTeacherBoard(); return false;">🏆 لوحة المعلمة</button>
+<button class="btn gold" onclick="showTeacherBoard(); return false;" ontouchstart="showTeacherBoard(); return false;">🏆 لوحة المعلمة</button>
   </section>
   <section id="login" class="panel hidden">
     <h2>👩‍🎓 بيانات الطالبة</h2>
@@ -322,22 +322,7 @@ window.resetTeacherBoard = async () => {
       deleteDoc(playerDoc.ref)
     );
 
-    await Promise.all(deletePromises);
-
-    alert('تم حذف النتائج بنجاح');
-    loadTeacherBoard(currentTeacherChapter);
-
-  } catch (error) {
-    alert('خطأ: ' + error.message);
-    console.error(error);
-  }
-};
-
-  await Promise.all(deletes);
-
-  alert('تم تصفير نتائج الباب بنجاح');
-  loadTeacherBoard(currentTeacherChapter);
-};
+    
 window.addEventListener('beforeunload',()=>{if(state.timer)clearInterval(state.timer)});
 </script>
 </body>
