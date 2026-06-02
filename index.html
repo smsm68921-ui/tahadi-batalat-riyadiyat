@@ -15,7 +15,7 @@
     .topbar{display:flex;gap:10px;flex-wrap:wrap;justify-content:space-between;align-items:center;margin-bottom:10px}.badge{border:2px solid #000;border-radius:999px;background:#fff;padding:8px 14px;font-weight:900;font-size:19px;color:#000}.timer{height:18px;background:#eee;border:2px solid #000;border-radius:999px;overflow:hidden;margin:12px 0}.timer>div{height:100%;background:linear-gradient(90deg,#55d66b,#ffd54a,#ff6b5f);width:100%;transition:width .3s linear}.qbox{border:3px solid #000;border-radius:24px;padding:18px;background:#fff;min-height:250px}.qno{font-size:20px;font-weight:900;color:#000}.question{font-size:clamp(25px,4vw,40px);font-weight:900;line-height:1.8;text-align:center;margin:15px 0;color:#000}.math{font-size:1.15em;font-weight:900;color:#000;white-space:normal}.opts{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}@media(max-width:700px){.opts{grid-template-columns:1fr}}
     .opt{min-height:72px;background:#fff;border:3px solid #000;border-radius:18px;padding:12px;font-size:24px;font-weight:900;color:#000;cursor:pointer}.opt.correct{background:#c9ffd7;animation:pop .35s}.opt.wrong{background:#ffd0d0;animation:shake .35s}@keyframes pop{50%{transform:scale(1.05)}}@keyframes shake{25%{transform:translateX(8px)}50%{transform:translateX(-8px)}75%{transform:translateX(5px)}}.leader h3{margin:0 0 10px;font-size:24px}.leaderItem{display:flex;justify-content:space-between;gap:8px;border:2px solid #000;border-radius:14px;padding:9px 10px;margin:8px 0;background:#fff;font-weight:900;font-size:17px}.stars{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:10}.star{position:absolute;font-size:28px;animation:fly 1s ease-out forwards}@keyframes fly{to{transform:translateY(-140px) rotate(200deg);opacity:0}}.endScore{font-size:42px;font-weight:900;text-align:center}.note{font-size:19px;font-weight:800;line-height:1.9}.footerCredit{text-align:center;margin-top:14px;font-weight:900;color:#000}.small{font-size:16px}.adminBox{background:#fffbe6;border:2px dashed #000;border-radius:18px;padding:12px;margin-top:12px}.status{font-weight:900;margin-top:10px}.svgIcon{width:70px;height:70px;margin:auto;display:block}
 
-    .introCard{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;margin:16px 0}.rule{border:2px solid #000;border-radius:18px;background:#fff;padding:14px;font-size:20px;font-weight:900;color:#000;text-align:center}.chapSub{font-size:15px;font-weight:800;margin-top:6px}.optionLabel{display:inline-flex;align-items:center;justify-content:center;min-width:42px;height:42px;border:2px solid #000;border-radius:50%;background:#e9f8ff;margin-left:10px;font-weight:900}.optionText{font-size:clamp(22px,3vw,31px);font-weight:900;line-height:1.7}.opt{display:flex;align-items:center;justify-content:flex-start;text-align:right;gap:6px}.feedback{font-size:22px;font-weight:900;text-align:center;min-height:38px;margin-top:12px;color:#000}.homeBtn{background:#fff4cf}.progressText{font-weight:900;text-align:center;margin:6px 0;color:#000}.endActions{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:16px}.leaderNote{font-size:15px;font-weight:800;margin-bottom:10px}.qbox{position:relative}.qbox:after{content:'تصميم الأستاذة / سماح كتبي';position:absolute;bottom:8px;left:18px;font-size:13px;font-weight:900;opacity:.45}.math sup{font-size:.7em;vertical-align:super}.sqrt{font-size:1.1em;font-weight:900}.question.math{direction:rtl}.opts .math{direction:rtl}
+    .introCard{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;margin:16px 0}.rule{border:2px solid #000;border-radius:18px;background:#fff;padding:14px;font-size:20px;font-weight:900;color:#000;text-align:center}.chapSub{font-size:15px;font-weight:800;margin-top:6px}.optionLabel{display:inline-flex;align-items:center;justify-content:center;min-width:42px;height:42px;border:2px solid #000;border-radius:50%;background:#e9f8ff;margin-left:10px;font-weight:900}.optionText{font-size:clamp(22px,3vw,31px);font-weight:900;line-height:1.7}.opt{display:flex;align-items:center;justify-content:flex-start;text-align:right;gap:6px}.feedback{font-size:22px;font-weight:900;text-align:center;min-height:38px;margin-top:12px;color:#000}.homeBtn{background:#fff4cf}.progressText{font-weight:900;text-align:center;margin:6px 0;color:#000}.endActions{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:16px}.leaderNote{font-size:15px;font-weight:800;margin-bottom:10px}.qbox{position:relative}.math sup{font-size:.7em;vertical-align:super}.sqrt{font-size:1.1em;font-weight:900}.question.math{direction:rtl}.opts .math{direction:rtl}
 @media (max-width: 768px) {
   .panel,
   .card,
@@ -66,8 +66,8 @@
       <div class="rule">🏆 تابعي ترتيبك مباشرة</div>
       <div class="rule">🎯 حاولي الوصول للمركز الأول</div>
     </div>
-    <button class="btn primary" onclick="showLogin(); return false;" ontouchstart="showLogin(); return false;">ابدئي اللعب 🚀</button>
-<button class="btn gold" onclick="showTeacherBoard(); return false;" ontouchstart="showTeacherBoard(); return false;">🏆 لوحة المعلمة</button>
+    <button type="button" class="btn primary" id="startBtn">ابدئي اللعب 🚀</button>
+    <button type="button" class="btn gold" id="teacherBtn">🏆 لوحة المعلمة</button>
   </section>
   <section id="login" class="panel hidden">
     <h2>👩‍🎓 بيانات الطالبة</h2>
@@ -125,7 +125,6 @@
         <div id="leaderboard">جاري التحميل...</div>
       </aside>
     </div>
-    <div class="footerCredit">تصميم الأستاذة / سماح كتبي</div>
   </section>
 
   <section id="end" class="panel hidden">
@@ -322,7 +321,23 @@ window.resetTeacherBoard = async () => {
       deleteDoc(playerDoc.ref)
     );
 
-    
+    await Promise.all(deletePromises);
+
+    alert('تم حذف النتائج بنجاح');
+    loadTeacherBoard(currentTeacherChapter);
+
+  } catch (error) {
+    alert('خطأ: ' + error.message);
+    console.error(error);
+  }
+};
+
+// ربط أزرار الصفحة الرئيسية بطريقة تعمل على الجوال واللابتوب
+const startBtn = document.getElementById('startBtn');
+const teacherBtn = document.getElementById('teacherBtn');
+if (startBtn) startBtn.addEventListener('click', showLogin);
+if (teacherBtn) teacherBtn.addEventListener('click', showTeacherBoard);
+
 window.addEventListener('beforeunload',()=>{if(state.timer)clearInterval(state.timer)});
 </script>
 </body>
