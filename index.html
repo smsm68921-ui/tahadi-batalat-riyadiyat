@@ -38,8 +38,8 @@
       <div class="rule">🎯 حاولي الوصول للمركز الأول</div>
     </div>
     <button class="btn primary" onclick="showLogin()">ابدئي اللعب 🚀</button>
+<button class="btn gold" onclick="showTeacherBoard()">🏆 لوحة المعلمة</button>
   </section>
-
   <section id="login" class="panel hidden">
     <h2>👩‍🎓 بيانات الطالبة</h2>
     <div class="row">
@@ -49,7 +49,24 @@
     <div id="loginMsg" class="status"></div>
     <button class="btn primary" onclick="openChapters()">التالي</button>
   </section>
+<section id="teacherBoard" class="panel hidden">
+  <h2>🏆 لوحة المتصدرات المباشرة</h2>
+  <p class="note">اختاري الباب لمتابعة ترتيب الطالبات دون تشغيل الأسئلة.</p>
 
+  <div class="grid">
+    <button class="chap" onclick="loadTeacherBoard('ch6')">📘 الباب السادس</button>
+    <button class="chap" onclick="loadTeacherBoard('ch7')">📗 الباب السابع</button>
+    <button class="chap" onclick="loadTeacherBoard('ch8')">📙 الباب الثامن</button>
+    <button class="chap" onclick="loadTeacherBoard('ch9')">📕 الباب التاسع</button>
+    <button class="chap" onclick="loadTeacherBoard('ch10')">📔 الباب العاشر</button>
+  </div>
+
+  <div id="teacherBoardTitle" class="status"></div>
+  <div id="teacherLeaders" style="margin-top:18px"></div>
+
+  <br>
+  <button class="btn" onclick="backHome()">🏠 العودة للرئيسية</button>
+</section>
   <section id="chapters" class="panel hidden">
     <h2>📚 اختاري الباب</h2>
     <div class="grid" id="chapterGrid"></div>
@@ -175,6 +192,7 @@ function formatMath(txt){return safeHTML(toArabicDigits(txt))
   .replace(/([سصأ-ي])([²³⁴⁵⁶⁷⁸⁹])/g,'$1<sup>$2</sup>')
   .replace(/√/g,'<span class=\"sqrt\">√</span>');}
 const $ = (id) => document.getElementById(id);
+  let teacherUnsub = null;
 const intro=$('intro'), login=$('login'), game=$('game'), end=$('end'), chapterGrid=$('chapterGrid'), leaderboard=$('leaderboard'), chapterBadge=$('chapterBadge'), scoreBadge=$('scoreBadge'), timeBadge=$('timeBadge'), timerFill=$('timerFill'), qno=$('qno'), icon=$('icon'), question=$('question'), options=$('options'), finalScore=$('finalScore'), finalDetails=$('finalDetails'), stars=$('stars'), feedback=$('feedback');
 
 let state={student:'',klass:'',chapterKey:'',chapter:null,questions:[],idx:0,score:0,correct:0,wrong:0,time:30,timer:null,docId:'',unsub:null,answeredWrong:false};
@@ -196,7 +214,59 @@ function svgIcon(key){const map={ch6:'M30 10h60v80H30z M42 28h36 M42 45h36 M42 6
 window.backToChapters=()=>{if(confirm('هل تريدين الرجوع لاختيار الأبواب؟ سيتم حفظ نتيجتك الحالية.')){clearInterval(state.timer); if(state.unsub)state.unsub(); game.classList.add('hidden'); document.getElementById('chapters').classList.remove('hidden'); renderChapters();}};
 window.goToChaptersFromEnd=()=>{end.classList.add('hidden'); document.getElementById('chapters').classList.remove('hidden'); renderChapters();};
 window.restartSame=()=>{end.classList.add('hidden'); startChapter(state.chapterKey);};
+window.showTeacherBoard = () => {
+  intro.classList.add('hidden');
+  login.classList.add('hidden');
+  game.classList.add('hidden');
+  end.classList.add('hidden');
+  document.getElementById('chapters').classList.add('hidden');
+  document.getElementById('teacherBoard').classList.remove('hidden');
+};
 
+window.backHome = () => {
+  if (teacherUnsub) teacherUnsub();
+  document.getElementById('teacherBoard').classList.add('hidden');
+  intro.classList.remove('hidden');
+};
+
+window.loadTeacherBoard = (chapterKey) => {
+  if (teacherUnsub) teacherUnsub();
+
+  const title = document.getElementById('teacherBoardTitle');
+  const box = document.getElementById('teacherLeaders');
+
+  title.textContent = 'جاري تحميل متصدرات ' + QUESTION_BANK[chapterKey].name + '...';
+  box.innerHTML = '';
+
+  const qy = query(
+    collection(db, 'leaderboards', chapterKey, 'players'),
+    orderBy('score', 'desc'),
+    limit(30)
+  );
+
+  teacherUnsub = onSnapshot(qy, (snap) => {
+    box.innerHTML = '';
+    title.textContent = '🏆 متصدرات ' + QUESTION_BANK[chapterKey].name;
+
+    if (snap.empty) {
+      box.innerHTML = '<div class="leaderItem">لا توجد نتائج بعد</div>';
+      return;
+    }
+
+    let i = 0;
+    snap.forEach((d) => {
+      i++;
+      const x = d.data();
+      const row = document.createElement('div');
+      row.className = 'leaderItem';
+      row.innerHTML = `
+        <span>${i === 1 ? '👑' : i === 2 ? '🥈' : i === 3 ? '🥉' : '⭐'} ${x.name || ''}</span>
+        <span>${toArabicDigits(x.score || 0)} نقطة</span>
+      `;
+      box.appendChild(row);
+    });
+  });
+};
 window.addEventListener('beforeunload',()=>{if(state.timer)clearInterval(state.timer)});
 </script>
 </body>
