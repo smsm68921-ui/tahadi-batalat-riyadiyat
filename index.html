@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>تحدي بطلات الرياضيات - نسخة محسنة</title>
+  <title>تحدي بطلات الرياضيات</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@500;700;900&display=swap" rel="stylesheet">
@@ -46,7 +46,12 @@
     cursor: pointer;
   }
 }
-  </style>
+  
+button,.btn,.chap{touch-action:manipulation;-webkit-tap-highlight-color:rgba(0,0,0,.15);user-select:none;}
+#intro,#login,#chapters,#teacherBoard,#game,#end{position:relative;z-index:20;}
+.stars{pointer-events:none!important;}
+.introActions{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;}
+</style>
 </head>
 <body>
 <div class="stars" id="stars"></div>
@@ -66,9 +71,12 @@
       <div class="rule">🏆 تابعي ترتيبك مباشرة</div>
       <div class="rule">🎯 حاولي الوصول للمركز الأول</div>
     </div>
-    <button type="button" class="btn primary" id="startBtn">ابدئي اللعب 🚀</button>
-    <button type="button" class="btn gold" id="teacherBtn">🏆 لوحة المعلمة</button>
+    <div class="introActions">
+      <button type="button" class="btn primary" id="startBtn">ابدئي اللعب 🚀</button>
+      <button type="button" class="btn gold" id="teacherBtn">🏆 لوحة المعلمة</button>
+    </div>
   </section>
+
   <section id="login" class="panel hidden">
     <h2>👩‍🎓 بيانات الطالبة</h2>
     <div class="row">
@@ -76,27 +84,26 @@
       <div><label>الشعبة</label><input id="studentClass" placeholder="مثال: ٣ / ١"></div>
     </div>
     <div id="loginMsg" class="status"></div>
-    <button class="btn primary" onclick="openChapters()">التالي</button>
+    <button type="button" class="btn primary" id="nextBtn">التالي</button>
   </section>
-<section id="teacherBoard" class="panel hidden">
-  <h2>🏆 لوحة المتصدرات المباشرة</h2>
-  <p class="note">اختاري الباب لمتابعة ترتيب الطالبات دون تشغيل الأسئلة.</p>
 
-  <div class="grid">
-    <button class="chap" onclick="loadTeacherBoard('ch6')">📘 الباب السادس</button>
-    <button class="chap" onclick="loadTeacherBoard('ch7')">📗 الباب السابع</button>
-    <button class="chap" onclick="loadTeacherBoard('ch8')">📙 الباب الثامن</button>
-    <button class="chap" onclick="loadTeacherBoard('ch9')">📕 الباب التاسع</button>
-    <button class="chap" onclick="loadTeacherBoard('ch10')">📔 الباب العاشر</button>
-  </div>
+  <section id="teacherBoard" class="panel hidden">
+    <h2>🏆 لوحة المتصدرات المباشرة</h2>
+    <p class="note">اختاري الباب لمتابعة ترتيب الطالبات دون تشغيل الأسئلة.</p>
+    <div class="grid">
+      <button type="button" class="chap" data-teacher="ch6">📘 الباب السادس</button>
+      <button type="button" class="chap" data-teacher="ch7">📗 الباب السابع</button>
+      <button type="button" class="chap" data-teacher="ch8">📙 الباب الثامن</button>
+      <button type="button" class="chap" data-teacher="ch9">📕 الباب التاسع</button>
+      <button type="button" class="chap" data-teacher="ch10">📔 الباب العاشر</button>
+    </div>
+    <div id="teacherBoardTitle" class="status"></div>
+    <div id="teacherLeaders" style="margin-top:18px"></div>
+    <br>
+    <button type="button" class="btn red" id="resetBtn">🗑️ تصفير نتائج الباب الحالي</button>
+    <button type="button" class="btn" id="homeBtn">🏠 العودة للرئيسية</button>
+  </section>
 
-  <div id="teacherBoardTitle" class="status"></div>
-  <div id="teacherLeaders" style="margin-top:18px"></div>
-
-  <br>
-  <button class="btn red" onclick="resetTeacherBoard()">🗑️ تصفير نتائج الباب الحالي</button>
-<button class="btn" onclick="backHome()">🏠 العودة للرئيسية</button>
-</section>
   <section id="chapters" class="panel hidden">
     <h2>📚 اختاري الباب</h2>
     <div class="grid" id="chapterGrid"></div>
@@ -109,7 +116,7 @@
           <span class="badge" id="chapterBadge"></span>
           <span class="badge" id="scoreBadge">النقاط: ٠</span>
           <span class="badge" id="timeBadge">٣٠ ثانية</span>
-          <button class="btn homeBtn" style="padding:8px 14px;font-size:17px" onclick="backToChapters()">🏠 الأبواب</button>
+          <button type="button" class="btn homeBtn" style="padding:8px 14px;font-size:17px" id="backChaptersBtn">🏠 الأبواب</button>
         </div>
         <div class="timer"><div id="timerFill"></div></div>
         <div class="qbox">
@@ -131,14 +138,17 @@
     <h2>🎉 انتهى التحدي</h2>
     <div class="endScore" id="finalScore"></div>
     <div id="finalDetails" class="note"></div>
-    <div class="endActions"><button class="btn primary" onclick="restartSame()">إعادة نفس الباب</button><button class="btn gold" onclick="goToChaptersFromEnd()">اختيار باب آخر</button><button class="btn" onclick="location.reload()">البداية</button></div>
+    <div class="endActions">
+      <button type="button" class="btn primary" id="restartBtn">إعادة نفس الباب</button>
+      <button type="button" class="btn gold" id="chooseAnotherBtn">اختيار باب آخر</button>
+      <button type="button" class="btn" id="reloadBtn">البداية</button>
+    </div>
   </section>
 </div>
 
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
-import { getFirestore, doc, setDoc, updateDoc, collection, query, orderBy, limit, onSnapshot, serverTimestamp, getDoc, getDocs, deleteDoc } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
-
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
+<script>
 const firebaseConfig = {
   apiKey: "AIzaSyBM2Ed4NqgTV9-xuVGHejQvZL1fgFyvMbo",
   authDomain: "math-leaderboard-game.firebaseapp.com",
@@ -148,8 +158,9 @@ const firebaseConfig = {
   appId: "1:121434962141:web:812e09c528e40352464334",
   measurementId: "G-R6RNFLB39S"
 };
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+const FieldValue = firebase.firestore.FieldValue;
 
 const QUESTION_BANK = {
   ch6:{name:'الباب السادس', icon:'🧮', open:true, questions:[
@@ -219,125 +230,48 @@ function safeHTML(txt){return String(txt).replace(/[&<>]/g, m=>({'&':'&amp;','<'
 function formatMath(txt){return safeHTML(toArabicDigits(txt))
   .replace(/\^([٠-٩]+)/g,'<sup>$1</sup>')
   .replace(/([سصأ-ي])([²³⁴⁵⁶⁷⁸⁹])/g,'$1<sup>$2</sup>')
-  .replace(/√/g,'<span class=\"sqrt\">√</span>');}
+  .replace(/√/g,'<span class="sqrt">√</span>');}
 const $ = (id) => document.getElementById(id);
-  let teacherUnsub = null;
 const intro=$('intro'), login=$('login'), game=$('game'), end=$('end'), chapterGrid=$('chapterGrid'), leaderboard=$('leaderboard'), chapterBadge=$('chapterBadge'), scoreBadge=$('scoreBadge'), timeBadge=$('timeBadge'), timerFill=$('timerFill'), qno=$('qno'), icon=$('icon'), question=$('question'), options=$('options'), finalScore=$('finalScore'), finalDetails=$('finalDetails'), stars=$('stars'), feedback=$('feedback');
+let teacherUnsub = null;
+let currentTeacherChapter = null;
+let state={student:'',klass:'',chapterKey:'',chapter:null,questions:[],idx:0,score:0,correct:0,wrong:0,time:30,timer:null,docId:'',unsub:null};
 
-let state={student:'',klass:'',chapterKey:'',chapter:null,questions:[],idx:0,score:0,correct:0,wrong:0,time:30,timer:null,docId:'',unsub:null,answeredWrong:false};
-window.showLogin=()=>{intro.classList.add('hidden'); login.classList.remove('hidden')};
-window.openChapters=()=>{const name=document.getElementById('studentName').value.trim(); if(!name){document.getElementById('loginMsg').textContent='اكتبي اسم الطالبة أولًا';return;} state.student=name; state.klass=document.getElementById('studentClass').value.trim(); document.getElementById('login').classList.add('hidden'); document.getElementById('chapters').classList.remove('hidden'); renderChapters();};
-function renderChapters(){chapterGrid.innerHTML=''; Object.entries(QUESTION_BANK).forEach(([key,ch])=>{const b=document.createElement('button');b.className='chap '+(ch.open?'':'locked');b.innerHTML=`<div style="font-size:38px">${ch.icon}</div>${ch.name}<div class="chapSub">${toArabicDigits(ch.questions.length)} أسئلة</div>`;b.onclick=()=> ch.open?startChapter(key):alert('🔒 هذا التحدي غير متاح حاليًا'); chapterGrid.appendChild(b);});}
-async function startChapter(key){state.chapterKey=key;state.chapter=QUESTION_BANK[key];state.questions=[...state.chapter.questions];state.idx=0;state.score=0;state.correct=0;state.wrong=0;state.docId=`${key}_${state.student.replace(/\s+/g,'_')}`;const ref=doc(db,'leaderboards',key,'players',state.docId);const exists=await getDoc(ref); if(exists.exists() && exists.data().finished){ if(!confirm('هذا الاسم لديه نتيجة سابقة في هذا الباب. هل تريدين المحاولة مرة أخرى وتحديث النتيجة؟')) return; }
-await setDoc(ref,{name:state.student,class:state.klass,chapter:state.chapter.name,score:0,correct:0,wrong:0,finished:false,updatedAt:serverTimestamp()},{merge:true});document.getElementById('chapters').classList.add('hidden');document.getElementById('game').classList.remove('hidden');listenLeaderboard();renderQuestion();}
-function listenLeaderboard(){if(state.unsub)state.unsub();const qy=query(collection(db,'leaderboards',state.chapterKey,'players'),orderBy('score','desc'),limit(10));state.unsub=onSnapshot(qy,snap=>{leaderboard.innerHTML='';let i=0;snap.forEach(d=>{i++;const x=d.data();const row=document.createElement('div');row.className='leaderItem';row.innerHTML=`<span>${i==1?'👑':i==2?'🥈':i==3?'🥉':'⭐'} ${x.name||''}</span><span>${toArabicDigits(x.score||0)}</span>`;leaderboard.appendChild(row);});if(!i)leaderboard.textContent='لا توجد نتائج بعد';});}
-function renderQuestion(){clearInterval(state.timer); if(state.idx>=state.questions.length){finishGame();return;} state.answeredWrong=false; const item=state.questions[state.idx];chapterBadge.textContent=state.chapter.icon+' '+state.chapter.name;scoreBadge.textContent='النقاط: '+toArabicDigits(state.score);qno.textContent=`السؤال ${toArabicDigits(state.idx+1)} من ${toArabicDigits(state.questions.length)}`;icon.innerHTML=svgIcon(state.chapterKey);question.innerHTML=formatMath(item.text);options.innerHTML='';feedback.textContent='';item.options.forEach((op,i)=>{const b=document.createElement('button');b.className='opt math';b.innerHTML=`<span class="optionLabel">${['أ','ب','ج','د'][i]}</span><span class="optionText">${formatMath(op)}</span>`;b.onclick=()=>choose(i,b);options.appendChild(b);});startTimer();}
+function showOnly(section){[intro,login,$('chapters'),$('teacherBoard'),game,end].forEach(s=>s.classList.add('hidden')); section.classList.remove('hidden'); window.scrollTo(0,0);}
+function showLogin(){showOnly(login);}
+function showTeacherBoard(){showOnly($('teacherBoard'));}
+function backHome(){ if (teacherUnsub) teacherUnsub(); teacherUnsub=null; currentTeacherChapter=null; showOnly(intro); }
+function openChapters(){const name=$('studentName').value.trim(); if(!name){$('loginMsg').textContent='اكتبي اسم الطالبة أولًا';return;} state.student=name; state.klass=$('studentClass').value.trim(); showOnly($('chapters')); renderChapters();}
+function renderChapters(){chapterGrid.innerHTML=''; Object.entries(QUESTION_BANK).forEach(([key,ch])=>{const b=document.createElement('button');b.type='button';b.className='chap '+(ch.open?'':'locked');b.innerHTML=`<div style="font-size:38px">${ch.icon}</div>${ch.name}<div class="chapSub">${toArabicDigits(ch.questions.length)} أسئلة</div>`;b.addEventListener('click',()=> ch.open?startChapter(key):alert('🔒 هذا التحدي غير متاح حاليًا')); chapterGrid.appendChild(b);});}
+async function startChapter(key){state.chapterKey=key;state.chapter=QUESTION_BANK[key];state.questions=[...state.chapter.questions];state.idx=0;state.score=0;state.correct=0;state.wrong=0;state.docId=`${key}_${state.student.replace(/\s+/g,'_')}`;const ref=db.collection('leaderboards').doc(key).collection('players').doc(state.docId);const exists=await ref.get(); if(exists.exists && exists.data().finished){ if(!confirm('هذا الاسم لديه نتيجة سابقة في هذا الباب. هل تريدين المحاولة مرة أخرى وتحديث النتيجة؟')) return; }
+await ref.set({name:state.student,class:state.klass,chapter:state.chapter.name,score:0,correct:0,wrong:0,finished:false,updatedAt:FieldValue.serverTimestamp()},{merge:true});showOnly(game);listenLeaderboard();renderQuestion();}
+function listenLeaderboard(){if(state.unsub)state.unsub();state.unsub=db.collection('leaderboards').doc(state.chapterKey).collection('players').orderBy('score','desc').limit(10).onSnapshot(snap=>{leaderboard.innerHTML='';let i=0;snap.forEach(d=>{i++;const x=d.data();const row=document.createElement('div');row.className='leaderItem';row.innerHTML=`<span>${i==1?'👑':i==2?'🥈':i==3?'🥉':'⭐'} ${x.name||''}</span><span>${toArabicDigits(x.score||0)}</span>`;leaderboard.appendChild(row);});if(!i)leaderboard.textContent='لا توجد نتائج بعد';});}
+function renderQuestion(){clearInterval(state.timer); if(state.idx>=state.questions.length){finishGame();return;} const item=state.questions[state.idx];chapterBadge.textContent=state.chapter.icon+' '+state.chapter.name;scoreBadge.textContent='النقاط: '+toArabicDigits(state.score);qno.textContent=`السؤال ${toArabicDigits(state.idx+1)} من ${toArabicDigits(state.questions.length)}`;icon.innerHTML=svgIcon(state.chapterKey);question.innerHTML=formatMath(item.text);options.innerHTML='';feedback.textContent='';item.options.forEach((op,i)=>{const b=document.createElement('button');b.type='button';b.className='opt math';b.innerHTML=`<span class="optionLabel">${['أ','ب','ج','د'][i]}</span><span class="optionText">${formatMath(op)}</span>`;b.addEventListener('click',()=>choose(i,b));options.appendChild(b);});startTimer();}
 function startTimer(){state.time=30;timeBadge.textContent='٣٠ ثانية';timerFill.style.width='100%';state.timer=setInterval(()=>{state.time--;timeBadge.textContent=toArabicDigits(state.time)+' ثانية';timerFill.style.width=(state.time/30*100)+'%';if(state.time<=0){clearInterval(state.timer);feedback.textContent='انتهى الوقت، ننتقل للسؤال التالي';setTimeout(()=>{state.idx++;renderQuestion();},600);}},1000);}
 async function choose(i,btn){const item=state.questions[state.idx]; if(btn.disabled) return; if(i===item.answer){Array.from(options.children).forEach(x=>x.disabled=true);btn.classList.add('correct');feedback.textContent='إجابة صحيحة، أحسنتِ ⭐';state.score++;state.correct++;playTone(true);burst();await saveProgress(false);setTimeout(()=>{state.idx++;renderQuestion();},750);}else{btn.classList.add('wrong');feedback.textContent='إجابة غير صحيحة، حاولي مرة أخرى';state.score--;state.wrong++;playTone(false);await saveProgress(false);setTimeout(()=>btn.classList.remove('wrong'),450);}}
-async function saveProgress(done){scoreBadge.textContent='النقاط: '+toArabicDigits(state.score);await updateDoc(doc(db,'leaderboards',state.chapterKey,'players',state.docId),{score:state.score,correct:state.correct,wrong:state.wrong,finished:done,updatedAt:serverTimestamp()});}
-async function finishGame(){clearInterval(state.timer); if(state.unsub)state.unsub(); await saveProgress(true);game.classList.add('hidden');end.classList.remove('hidden');finalScore.textContent='النقاط: '+toArabicDigits(state.score);finalDetails.innerHTML=`الباب: ${state.chapter.name}<br>الإجابات الصحيحة: ${toArabicDigits(state.correct)}<br>الإجابات الخاطئة: ${toArabicDigits(state.wrong)}<br>أحسنتِ، راجعي الأخطاء ثم جرّبي بابًا آخر.`;}
+async function saveProgress(done){scoreBadge.textContent='النقاط: '+toArabicDigits(state.score);await db.collection('leaderboards').doc(state.chapterKey).collection('players').doc(state.docId).update({score:state.score,correct:state.correct,wrong:state.wrong,finished:done,updatedAt:FieldValue.serverTimestamp()});}
+async function finishGame(){clearInterval(state.timer); if(state.unsub)state.unsub(); await saveProgress(true);showOnly(end);finalScore.textContent='النقاط: '+toArabicDigits(state.score);finalDetails.innerHTML=`الباب: ${state.chapter.name}<br>الإجابات الصحيحة: ${toArabicDigits(state.correct)}<br>الإجابات الخاطئة: ${toArabicDigits(state.wrong)}<br>أحسنتِ، راجعي الأخطاء ثم جرّبي بابًا آخر.`;}
 function burst(){for(let i=0;i<16;i++){const s=document.createElement('div');s.className='star';s.textContent=['⭐','✨','🌟'][i%3];s.style.left=Math.random()*100+'%';s.style.top=(55+Math.random()*25)+'%';stars.appendChild(s);setTimeout(()=>s.remove(),1000);}}
 function playTone(ok){try{const ctx=new (window.AudioContext||window.webkitAudioContext)();const osc=ctx.createOscillator();const gain=ctx.createGain();osc.connect(gain);gain.connect(ctx.destination);osc.frequency.value=ok?740:220;gain.gain.value=.06;osc.start();setTimeout(()=>{osc.stop();ctx.close();},ok?180:260);}catch(e){}}
 function svgIcon(key){const map={ch6:'M30 10h60v80H30z M42 28h36 M42 45h36 M42 62h36',ch7:'M20 70 L50 20 L80 70 Z M35 70 L50 45 L65 70',ch8:'M15 80 Q50 10 85 80 M50 10v70 M20 55h60',ch9:'M20 80 L20 25 L85 80 Z M20 25 L85 80',ch10:'M25 25h60v60H25z M40 40h1 M70 40h1 M55 55h1 M40 70h1 M70 70h1'};return `<svg class="svgIcon" viewBox="0 0 100 100"><path d="${map[key]}" fill="none" stroke="#000" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></svg>`;}
+function backToChapters(){if(confirm('هل تريدين الرجوع لاختيار الأبواب؟ سيتم حفظ نتيجتك الحالية.')){clearInterval(state.timer); if(state.unsub)state.unsub(); showOnly($('chapters')); renderChapters();}}
+function goToChaptersFromEnd(){showOnly($('chapters')); renderChapters();}
+function restartSame(){showOnly(game); startChapter(state.chapterKey);}
+function loadTeacherBoard(chapterKey){currentTeacherChapter=chapterKey; if(teacherUnsub)teacherUnsub(); const title=$('teacherBoardTitle'); const box=$('teacherLeaders'); title.textContent='جاري تحميل متصدرات '+QUESTION_BANK[chapterKey].name+'...'; box.innerHTML=''; teacherUnsub=db.collection('leaderboards').doc(chapterKey).collection('players').orderBy('score','desc').limit(30).onSnapshot(snap=>{box.innerHTML=''; title.textContent='🏆 متصدرات '+QUESTION_BANK[chapterKey].name; if(snap.empty){box.innerHTML='<div class="leaderItem">لا توجد نتائج بعد</div>'; return;} let i=0; snap.forEach(d=>{i++; const x=d.data(); const row=document.createElement('div'); row.className='leaderItem'; row.innerHTML=`<span>${i===1?'👑':i===2?'🥈':i===3?'🥉':'⭐'} ${x.name||''}</span><span>${toArabicDigits(x.score||0)} نقطة</span>`; box.appendChild(row);});});}
+async function resetTeacherBoard(){if(!currentTeacherChapter){alert('اختاري الباب أولاً ثم اضغطي تصفير النتائج');return;} if(!confirm('هل تريدين حذف نتائج هذا الباب فقط؟')) return; try{const snap=await db.collection('leaderboards').doc(currentTeacherChapter).collection('players').get(); if(snap.empty){alert('لا توجد نتائج لحذفها');return;} const deletes=[]; snap.forEach(playerDoc=>deletes.push(playerDoc.ref.delete())); await Promise.all(deletes); alert('تم حذف النتائج بنجاح'); loadTeacherBoard(currentTeacherChapter);}catch(error){alert('خطأ: '+error.message); console.error(error);}}
 
-window.backToChapters=()=>{if(confirm('هل تريدين الرجوع لاختيار الأبواب؟ سيتم حفظ نتيجتك الحالية.')){clearInterval(state.timer); if(state.unsub)state.unsub(); game.classList.add('hidden'); document.getElementById('chapters').classList.remove('hidden'); renderChapters();}};
-window.goToChaptersFromEnd=()=>{end.classList.add('hidden'); document.getElementById('chapters').classList.remove('hidden'); renderChapters();};
-window.restartSame=()=>{end.classList.add('hidden'); startChapter(state.chapterKey);};
-window.showTeacherBoard = () => {
-  intro.classList.add('hidden');
-  login.classList.add('hidden');
-  game.classList.add('hidden');
-  end.classList.add('hidden');
-  document.getElementById('chapters').classList.add('hidden');
-  document.getElementById('teacherBoard').classList.remove('hidden');
-};
-
-window.backHome = () => {
-  if (teacherUnsub) teacherUnsub();
-  document.getElementById('teacherBoard').classList.add('hidden');
-  intro.classList.remove('hidden');
-};
-
-window.loadTeacherBoard = (chapterKey) => {
-  currentTeacherChapter = chapterKey;
-  if (teacherUnsub) teacherUnsub();
-
-  const title = document.getElementById('teacherBoardTitle');
-  const box = document.getElementById('teacherLeaders');
-
-  title.textContent = 'جاري تحميل متصدرات ' + QUESTION_BANK[chapterKey].name + '...';
-  box.innerHTML = '';
-
-  const qy = query(
-    collection(db, 'leaderboards', chapterKey, 'players'),
-    orderBy('score', 'desc'),
-    limit(30)
-  );
-
-  teacherUnsub = onSnapshot(qy, (snap) => {
-    box.innerHTML = '';
-    title.textContent = '🏆 متصدرات ' + QUESTION_BANK[chapterKey].name;
-
-    if (snap.empty) {
-      box.innerHTML = '<div class="leaderItem">لا توجد نتائج بعد</div>';
-      return;
-    }
-
-    let i = 0;
-    snap.forEach((d) => {
-      i++;
-      const x = d.data();
-      const row = document.createElement('div');
-      row.className = 'leaderItem';
-      row.innerHTML = `
-        <span>${i === 1 ? '👑' : i === 2 ? '🥈' : i === 3 ? '🥉' : '⭐'} ${x.name || ''}</span>
-        <span>${toArabicDigits(x.score || 0)} نقطة</span>
-      `;
-      box.appendChild(row);
-    });
-  });
-};
-  let currentTeacherChapter = null;
-
-window.resetTeacherBoard = async () => {
-  if (!currentTeacherChapter) {
-    alert('اختاري الباب أولاً ثم اضغطي تصفير النتائج');
-    return;
-  }
-
-  const ok = confirm('هل تريدين حذف نتائج هذا الباب فقط؟');
-  if (!ok) return;
-
-  try {
-    const playersRef = collection(db, 'leaderboards', currentTeacherChapter, 'players');
-    const snap = await getDocs(playersRef);
-
-    if (snap.empty) {
-      alert('لا توجد نتائج لحذفها');
-      return;
-    }
-
-    const deletePromises = snap.docs.map(playerDoc =>
-      deleteDoc(playerDoc.ref)
-    );
-
-    await Promise.all(deletePromises);
-
-    alert('تم حذف النتائج بنجاح');
-    loadTeacherBoard(currentTeacherChapter);
-
-  } catch (error) {
-    alert('خطأ: ' + error.message);
-    console.error(error);
-  }
-};
-
-// ربط أزرار الصفحة الرئيسية بطريقة تعمل على الجوال واللابتوب
-const startBtn = document.getElementById('startBtn');
-const teacherBtn = document.getElementById('teacherBtn');
-if (startBtn) startBtn.addEventListener('click', showLogin);
-if (teacherBtn) teacherBtn.addEventListener('click', showTeacherBoard);
-
+window.addEventListener('load',()=>{
+  $('startBtn').addEventListener('click', showLogin);
+  $('teacherBtn').addEventListener('click', showTeacherBoard);
+  $('nextBtn').addEventListener('click', openChapters);
+  $('homeBtn').addEventListener('click', backHome);
+  $('resetBtn').addEventListener('click', resetTeacherBoard);
+  $('backChaptersBtn').addEventListener('click', backToChapters);
+  $('restartBtn').addEventListener('click', restartSame);
+  $('chooseAnotherBtn').addEventListener('click', goToChaptersFromEnd);
+  $('reloadBtn').addEventListener('click', ()=>location.reload());
+  document.querySelectorAll('[data-teacher]').forEach(btn=>btn.addEventListener('click',()=>loadTeacherBoard(btn.dataset.teacher)));
+});
 window.addEventListener('beforeunload',()=>{if(state.timer)clearInterval(state.timer)});
 </script>
 </body>
