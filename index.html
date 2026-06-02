@@ -16,7 +16,36 @@
     .opt{min-height:72px;background:#fff;border:3px solid #000;border-radius:18px;padding:12px;font-size:24px;font-weight:900;color:#000;cursor:pointer}.opt.correct{background:#c9ffd7;animation:pop .35s}.opt.wrong{background:#ffd0d0;animation:shake .35s}@keyframes pop{50%{transform:scale(1.05)}}@keyframes shake{25%{transform:translateX(8px)}50%{transform:translateX(-8px)}75%{transform:translateX(5px)}}.leader h3{margin:0 0 10px;font-size:24px}.leaderItem{display:flex;justify-content:space-between;gap:8px;border:2px solid #000;border-radius:14px;padding:9px 10px;margin:8px 0;background:#fff;font-weight:900;font-size:17px}.stars{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:10}.star{position:absolute;font-size:28px;animation:fly 1s ease-out forwards}@keyframes fly{to{transform:translateY(-140px) rotate(200deg);opacity:0}}.endScore{font-size:42px;font-weight:900;text-align:center}.note{font-size:19px;font-weight:800;line-height:1.9}.footerCredit{text-align:center;margin-top:14px;font-weight:900;color:#000}.small{font-size:16px}.adminBox{background:#fffbe6;border:2px dashed #000;border-radius:18px;padding:12px;margin-top:12px}.status{font-weight:900;margin-top:10px}.svgIcon{width:70px;height:70px;margin:auto;display:block}
 
     .introCard{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;margin:16px 0}.rule{border:2px solid #000;border-radius:18px;background:#fff;padding:14px;font-size:20px;font-weight:900;color:#000;text-align:center}.chapSub{font-size:15px;font-weight:800;margin-top:6px}.optionLabel{display:inline-flex;align-items:center;justify-content:center;min-width:42px;height:42px;border:2px solid #000;border-radius:50%;background:#e9f8ff;margin-left:10px;font-weight:900}.optionText{font-size:clamp(22px,3vw,31px);font-weight:900;line-height:1.7}.opt{display:flex;align-items:center;justify-content:flex-start;text-align:right;gap:6px}.feedback{font-size:22px;font-weight:900;text-align:center;min-height:38px;margin-top:12px;color:#000}.homeBtn{background:#fff4cf}.progressText{font-weight:900;text-align:center;margin:6px 0;color:#000}.endActions{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:16px}.leaderNote{font-size:15px;font-weight:800;margin-bottom:10px}.qbox{position:relative}.qbox:after{content:'تصميم الأستاذة / سماح كتبي';position:absolute;bottom:8px;left:18px;font-size:13px;font-weight:900;opacity:.45}.math sup{font-size:.7em;vertical-align:super}.sqrt{font-size:1.1em;font-weight:900}.question.math{direction:rtl}.opts .math{direction:rtl}
+@media (max-width: 768px) {
+  .panel,
+  .card,
+  section,
+  button,
+  .btn {
+    position: relative;
+    z-index: 10;
+    pointer-events: auto !important;
+  }
 
+  body::before,
+  body::after {
+    pointer-events: none !important;
+  }
+
+  .sparkle,
+  .star,
+  .shape,
+  .bg-shape {
+    pointer-events: none !important;
+  }
+
+  button,
+  .btn {
+    min-height: 60px;
+    touch-action: manipulation;
+    cursor: pointer;
+  }
+}
   </style>
 </head>
 <body>
