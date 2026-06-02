@@ -273,18 +273,36 @@ window.loadTeacherBoard = (chapterKey) => {
 
 window.resetTeacherBoard = async () => {
   if (!currentTeacherChapter) {
-    alert('اختاري الباب أولًا ثم اضغطي تصفير النتائج');
+    alert('اختاري الباب أولاً ثم اضغطي تصفير النتائج');
     return;
   }
 
-  if (!confirm('هل تريدين حذف نتائج هذا الباب فقط؟')) return;
+  const ok = confirm('هل تريدين حذف نتائج هذا الباب فقط؟');
+  if (!ok) return;
 
-  const snap = await getDocs(collection(db, 'leaderboards', currentTeacherChapter, 'players'));
+  try {
+    const playersRef = collection(db, 'leaderboards', currentTeacherChapter, 'players');
+    const snap = await getDocs(playersRef);
 
-  const deletes = [];
-  snap.forEach((d) => {
-    deletes.push(deleteDoc(doc(db, 'leaderboards', currentTeacherChapter, 'players', d.id)));
-  });
+    if (snap.empty) {
+      alert('لا توجد نتائج لحذفها');
+      return;
+    }
+
+    const deletePromises = snap.docs.map(playerDoc =>
+      deleteDoc(playerDoc.ref)
+    );
+
+    await Promise.all(deletePromises);
+
+    alert('تم حذف النتائج بنجاح');
+    loadTeacherBoard(currentTeacherChapter);
+
+  } catch (error) {
+    alert('خطأ: ' + error.message);
+    console.error(error);
+  }
+};
 
   await Promise.all(deletes);
 
